@@ -9,6 +9,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.kata.developmentbooks.service.BookService;
+
 class DevelopmentBooksControllerTest {
 
 	DevelopmentBooksController controller;
@@ -16,6 +18,7 @@ class DevelopmentBooksControllerTest {
 	@BeforeEach
 	public void setUp() {
 		controller = new DevelopmentBooksController();
+		controller.service = new BookService();
 	}
 
 	@Test
