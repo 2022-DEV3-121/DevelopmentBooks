@@ -161,6 +161,18 @@ class BookServiceTest {
         assertEquals(875.0, result.getFinalPrice());
     }
 
+    @Test
+    public void getPriceShouldReturnMaximumDiscountedPriceAfterOptimizingGroupingOfBooks() {
+        List<BookRequest> books = new ArrayList<BookRequest>();
+        books.add(new BookRequest(1, 2));
+        books.add(new BookRequest(2, 2));
+        books.add(new BookRequest(3, 2));
+        books.add(new BookRequest(4, 1));
+        books.add(new BookRequest(5, 1));
+        PriceSummary result = service.calulateBooksPriceWithDiscount(books);
+        assertEquals(320.0, result.getFinalPrice(), 0.0);
+    }
+    
 	private List<Books> getExpectedBooks() {
 		List<Books> excpectedBooks = new ArrayList<Books>();
 		excpectedBooks.add(new Books(1, "Clean Code", "Robert Martin", 2008, 50.00));

@@ -55,6 +55,7 @@ public class BookService {
             }
         }
 
+        makeOptimalGroups(bookGroups);
         finalPrice = priceOfSimilarBooksLeft + bookGroups.stream().mapToDouble(group -> calculateDiscountByNoOfTypesOfBooks(group)).sum();
         return createPriceSummary(totalBooks, finalPrice);
     }
@@ -121,5 +122,15 @@ public class BookService {
     
     public double calculatePriceForBooksWithoutDiscount(List<BookRequest> books) {
         return books.stream().filter(book -> book.getQuantity() > 0).mapToDouble(book -> book.getQuantity() * SINGLE_BOOK_PRICE).sum();
+    }
+    
+    public void makeOptimalGroups(List<Integer> groups) {
+        for (int i = 0; i < groups.size(); i++) {
+            Integer group = groups.get(i);
+            if (group == 5 && groups.indexOf(3) != -1) {
+                groups.set(i, 4);
+                groups.set(groups.indexOf(3), 4);
+            }
+        }
     }
 }
