@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import com.kata.developmentbooks.model.BookRequest;
 import com.kata.developmentbooks.model.Books;
+import com.kata.developmentbooks.model.PriceSummary;
 
 class BookServiceTest {
 
@@ -44,8 +45,8 @@ class BookServiceTest {
         List<BookRequest> books = new ArrayList<BookRequest>();
         books.add(new BookRequest(1, 1));
         books.add(new BookRequest(2, 1));
-        double result = service.getPrice(books);
-		assertEquals(95.0, result);
+        PriceSummary result = service.getPrice(books);
+		assertEquals(95.0, result.getFinalPrice());
 	}
 	
     @Test
@@ -53,8 +54,8 @@ class BookServiceTest {
         List<BookRequest> books = new ArrayList<BookRequest>();
         books.add(new BookRequest(1, 1));
         books.add(new BookRequest(2, 1));
-        double result = service.getPrice(books);
-        assertEquals(95.0, result);
+        PriceSummary result = service.getPrice(books);
+        assertEquals(95.0, result.getFinalPrice());
     }
 
 	private List<Books> getExpectedBooks() {

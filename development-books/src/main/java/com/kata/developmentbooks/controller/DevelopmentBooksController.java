@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kata.developmentbooks.model.BookRequest;
 import com.kata.developmentbooks.model.Books;
+import com.kata.developmentbooks.model.PriceSummary;
 import com.kata.developmentbooks.service.BookService;
 
 @RestController
@@ -24,7 +25,7 @@ public class DevelopmentBooksController {
 	}
 
 	@PostMapping("/getPrice")
-	public double getPrice(@RequestBody List<BookRequest> bookRequest) {
+	public PriceSummary getPrice(@RequestBody List<BookRequest> bookRequest) {
 		return service.getPrice(bookRequest);
 	}
 }
