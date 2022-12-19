@@ -31,7 +31,13 @@ public class BookService {
         if (books.size() == 1) {
             return createPriceSummaryForOnlyOneBookType(books.get(0));
 		}
-		int totalBooks = books.stream().mapToInt(book -> book.getQuantity()).sum();
+        else {
+        	return calulateBooksPriceWithDiscount(books);
+        }
+	 }
+
+    public PriceSummary calulateBooksPriceWithDiscount(List<BookRequest> books) {
+    	int totalBooks = books.stream().mapToInt(book -> book.getQuantity()).sum();
         List<Integer> bookGroups = new ArrayList<Integer>();
         double priceOfSimilarBooksLeft = 0;
         int noOfGroups = 1 + (totalBooks / books.size());
