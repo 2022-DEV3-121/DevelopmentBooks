@@ -1,6 +1,7 @@
 package com.kata.developmentbooks.service;
 
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,11 @@ public class BookService {
 	}
 
 	public PriceSummary getPrice(List<BookRequest> books) {
+		
+		List<Integer> availableBookIds = getAllBooks().stream().map(book -> book.getId()).collect(Collectors.toList());
+		if(books.stream().anyMatch(book -> !availableBookIds.contains(book.getBookId()))) {
+			throw new InputMismatchException("Invalid book Id provided, please select from the available book Id's only");
+		}
         if (books.size() == 1) {
             return createPriceSummaryForOnlyOneBookType(books.get(0));
 		}

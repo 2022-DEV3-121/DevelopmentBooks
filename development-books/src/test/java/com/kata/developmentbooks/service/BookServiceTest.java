@@ -1,9 +1,11 @@
 package com.kata.developmentbooks.service;
 
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -97,6 +99,18 @@ class BookServiceTest {
         books.add(new BookRequest(1, 5));
         PriceSummary result = service.getPrice(books);
         assertEquals(250.0, result.getFinalPrice());
+    }
+    
+    @Test
+    public void getPriceShouldThrowInputMismatchExceptionIfInvalidBookIdProvided() {
+        List<BookRequest> books = new ArrayList<BookRequest>();
+        books.add(new BookRequest(1, 1));
+        books.add(new BookRequest(6, 1));
+        InputMismatchException exception = assertThrows(InputMismatchException.class, () -> {
+			service.getPrice(books);
+		});
+		String expectedMessage = "Invalid book Id provided, please select from the available book Id's only";
+		assertTrue(exception.getMessage().equals(expectedMessage));
     }
 
 	private List<Books> getExpectedBooks() {
