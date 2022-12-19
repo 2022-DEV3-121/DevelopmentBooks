@@ -13,13 +13,14 @@ import com.kata.developmentbooks.model.Books;
 @Service
 public class BookService {
 
+	private static final double SINGLE_BOOK_PRICE = 50.0;
+
 	public List<Books> getAllBooks() {
 		return Arrays.stream(BooksEnum.values()).map(bookEnum -> new Books(bookEnum.getId(), bookEnum.getTitle(),
 				bookEnum.getAuthor(), bookEnum.getYear(), bookEnum.getPrice())).collect(Collectors.toList());
 	}
 
-	public double getPrice(BookRequest bookRequest) {
-		return getAllBooks().stream().filter(book -> book.getId() == bookRequest.getBookId()).findAny().get()
-				.getPrice();
+	public double getPrice(List<BookRequest> books) {
+		return books.stream().mapToInt(book -> book.getQuantity()).sum() * SINGLE_BOOK_PRICE;
 	}
 }

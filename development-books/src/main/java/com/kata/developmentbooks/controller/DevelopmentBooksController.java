@@ -24,7 +24,7 @@ public class DevelopmentBooksController {
 	}
 
 	@PostMapping("/getPrice")
-	public double getPrice(@RequestBody BookRequest bookRequest) {
+	public double getPrice(@RequestBody List<BookRequest> bookRequest) {
 		return service.getPrice(bookRequest);
 	}
 }

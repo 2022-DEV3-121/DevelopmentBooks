@@ -40,9 +40,12 @@ class BookServiceTest {
 	}
 
 	@Test
-	public void getPriceShouldReturnSuccessMessage() {
-		double result = service.getPrice(new BookRequest(1, 1));
-		assertEquals(50.0, result);
+	public void getPriceShouldReturnPriceOfBooks() {
+        List<BookRequest> books = new ArrayList<BookRequest>();
+        books.add(new BookRequest(1, 1));
+        books.add(new BookRequest(2, 1));
+        double result = service.getPrice(books);
+		assertEquals(100.0, result);
 	}
 
 	private List<Books> getExpectedBooks() {

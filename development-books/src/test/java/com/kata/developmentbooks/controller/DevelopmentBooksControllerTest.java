@@ -2,6 +2,7 @@ package com.kata.developmentbooks.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -34,9 +35,12 @@ class DevelopmentBooksControllerTest {
 	}
 
 	@Test
-	public void getPriceShouldReturnSuccessMessage() {
-		double result = controller.getPrice(new BookRequest(1, 1));
-		assertEquals(50.0, result);
+	public void getPriceShouldReturnPriceOfBooks() {
+		List<BookRequest> books = new ArrayList<BookRequest>();
+		books.add(new BookRequest(1, 1));
+		books.add(new BookRequest(2, 1));
+		double result = controller.getPrice(books);
+		assertEquals(100.0, result);
 	}
 
 }
