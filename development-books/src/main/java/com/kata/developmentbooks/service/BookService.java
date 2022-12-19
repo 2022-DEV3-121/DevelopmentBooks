@@ -1,5 +1,6 @@
 package com.kata.developmentbooks.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -31,8 +32,21 @@ public class BookService {
             return createPriceSummaryForOnlyOneBookType(books.get(0));
 		}
 		int totalBooks = books.stream().mapToInt(book -> book.getQuantity()).sum();
-        int typesOfBook = books.size();
-        return createPriceSummary(totalBooks, calculateDiscountByNoOfTypesOfBooks(totalBooks, typesOfBook));
+        List<Integer> bookGroups = new ArrayList<Integer>();
+
+        int noOfGroups = 1 + (totalBooks / books.size());
+        double finalPrice = 0;
+
+        for (int i = 0; i < noOfGroups; i++) {
+            int typesOfBookLeft = (int) books.stream().filter(book -> book.getQuantity() > 0).count();
+            bookGroups.add(typesOfBookLeft);
+            books.forEach(book -> {
+                book.setQuantity(book.getQuantity() - 1);
+            });
+        }
+
+        finalPrice = bookGroups.stream().mapToDouble(group -> calculateDiscountByNoOfTypesOfBooks(group)).sum();
+        return createPriceSummary(totalBooks, finalPrice);
     }
 
     public PriceSummary createPriceSummary(int totalBooks, double finalPrice) {
@@ -44,19 +58,19 @@ public class BookService {
         return priceSummary;
 	}
     
-    public double calculateDiscountByNoOfTypesOfBooks(int totalBooks, int typesOfBook) {
+    public double calculateDiscountByNoOfTypesOfBooks(int groupSize) {
 		double discountedPrice = 0;
-		double actualCost = totalBooks * SINGLE_BOOK_PRICE;
-		if (typesOfBook == 1)
-			discountedPrice = SINGLE_BOOK_PRICE;
-		if (typesOfBook == 2)
-			discountedPrice = actualCost - (actualCost * (5.0 / ONE_HUNDRED));
-		if (typesOfBook == 3)
-			discountedPrice = actualCost - (actualCost * (10.0 / ONE_HUNDRED));
-		if (typesOfBook == 4)
-			discountedPrice = actualCost - (actualCost * (20.0 / ONE_HUNDRED));
-		if (typesOfBook == 5)
-			discountedPrice = actualCost - (actualCost * (25.0 / ONE_HUNDRED));
+		double actualCost = groupSize * SINGLE_BOOK_PRICE;
+		if (groupSize == 1)
+			return SINGLE_BOOK_PRICE;
+		if (groupSize == 2)
+			return actualCost - (actualCost * (5.0 / ONE_HUNDRED));
+		if (groupSize == 3)
+			return actualCost - (actualCost * (10.0 / ONE_HUNDRED));
+		if (groupSize == 4)
+			return actualCost - (actualCost * (20.0 / ONE_HUNDRED));
+		if (groupSize == 5)
+			return actualCost - (actualCost * (25.0 / ONE_HUNDRED));
 		return discountedPrice;
 	}
     
