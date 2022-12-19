@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.kata.developmentbooks.model.BookRequest;
 import com.kata.developmentbooks.model.Books;
 
 class BookServiceTest {
@@ -36,6 +37,12 @@ class BookServiceTest {
 		assertEquals(excpectedBooks.get(2), result.get(2));
 		assertEquals(excpectedBooks.get(3), result.get(3));
 		assertEquals(excpectedBooks.get(4), result.get(4));
+	}
+
+	@Test
+	public void buyBookShouldReturnSuccessMessage() {
+		String result = service.buyBook(new BookRequest(1, 1));
+		assertEquals("Book bought..", result);
 	}
 
 	private List<Books> getExpectedBooks() {

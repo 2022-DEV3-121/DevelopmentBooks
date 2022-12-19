@@ -25,6 +25,6 @@ public class DevelopmentBooksController {
 
 	@PostMapping("/buyBook")
 	public String buyBook(@RequestBody BookRequest bookRequest) {
-		return "Book bought..";
+		return service.buyBook(bookRequest);
 	}
 }
