@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kata.developmentbooks.model.BookRequest;
 import com.kata.developmentbooks.model.Books;
 import com.kata.developmentbooks.service.BookService;
 
@@ -18,5 +21,10 @@ public class DevelopmentBooksController {
 	@GetMapping("/getAllBooks")
 	public List<Books> getAllBooks() {
 		return service.getAllBooks();
+	}
+
+	@PostMapping("/buyBook")
+	public String buyBook(@RequestBody BookRequest bookRequest) {
+		return "Book bought..";
 	}
 }
