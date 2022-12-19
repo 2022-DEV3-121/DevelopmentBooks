@@ -5,12 +5,12 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.kata.developmentbooks.exception.InvalidBookInputException;
 import com.kata.developmentbooks.model.BookRequest;
 import com.kata.developmentbooks.model.Books;
 import com.kata.developmentbooks.model.PriceSummary;
@@ -106,7 +106,7 @@ class BookServiceTest {
         List<BookRequest> books = new ArrayList<BookRequest>();
         books.add(new BookRequest(1, 1));
         books.add(new BookRequest(6, 1));
-        InputMismatchException exception = assertThrows(InputMismatchException.class, () -> {
+        InvalidBookInputException exception = assertThrows(InvalidBookInputException.class, () -> {
 			service.getPrice(books);
 		});
 		String expectedMessage = "Invalid book Id provided, please select from the available book Id's only";
@@ -118,7 +118,7 @@ class BookServiceTest {
         List<BookRequest> books = new ArrayList<BookRequest>();
         books.add(new BookRequest(1, 1));
         books.add(new BookRequest(5, 0));
-        InputMismatchException exception = assertThrows(InputMismatchException.class, () -> {
+        InvalidBookInputException exception = assertThrows(InvalidBookInputException.class, () -> {
 			service.getPrice(books);
 		});
 		String expectedMessage = "Invalid book quantity provided, please select quantity of book as more than one";

@@ -1,13 +1,13 @@
 package com.kata.developmentbooks.service;
 
 import java.util.Arrays;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.kata.developmentbooks.enums.BooksEnum;
+import com.kata.developmentbooks.exception.InvalidBookInputException;
 import com.kata.developmentbooks.model.BookRequest;
 import com.kata.developmentbooks.model.Books;
 import com.kata.developmentbooks.model.PriceSummary;
@@ -71,10 +71,10 @@ public class BookService {
     public void validateBookInputs(List<BookRequest> books) {
     	List<Integer> availableBookIds = getAllBooks().stream().map(book -> book.getId()).collect(Collectors.toList());
 		if(books.stream().anyMatch(book -> !availableBookIds.contains(book.getBookId()))) {
-			throw new InputMismatchException("Invalid book Id provided, please select from the available book Id's only");
+			throw new InvalidBookInputException("Invalid book Id provided, please select from the available book Id's only");
 		}
 		if(books.stream().anyMatch(book -> book.getQuantity() <= 0)) {
-			throw new InputMismatchException("Invalid book quantity provided, please select quantity of book as more than one");			
+			throw new InvalidBookInputException("Invalid book quantity provided, please select quantity of book as more than one");			
 		}
     }
 }
