@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kata.developmentbooks.model.Books;
 import com.kata.developmentbooks.service.BookService;
 
 @RestController
@@ -15,7 +16,7 @@ public class DevelopmentBooksController {
 	BookService service;
 
 	@GetMapping("/getAllBooks")
-	public List<String> getAllBooks() {
+	public List<Books> getAllBooks() {
 		return service.getAllBooks();
 	}
 }
