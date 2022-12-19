@@ -23,7 +23,7 @@ class DevelopmentBooksControllerTest {
 	@Test
 	void getBookNameShouldReturnNameOfTheBook() {
 		List<Books> result = controller.getAllBooks();
-		assertEquals("Clean Code", result.get(0));
+		assertEquals("Clean Code", result.get(0).getTitle());
 	}
 
 	@Test
