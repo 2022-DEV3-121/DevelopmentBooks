@@ -15,6 +15,7 @@ import com.kata.developmentbooks.model.PriceSummary;
 public class BookService {
 
 	private static final double SINGLE_BOOK_PRICE = 50.0;
+	private static final double ONE_HUNDRED = 100;
 
 	public List<Books> getAllBooks() {
 		return Arrays.stream(BooksEnum.values()).map(bookEnum -> new Books(bookEnum.getId(), bookEnum.getTitle(),
@@ -29,7 +30,7 @@ public class BookService {
 
     public PriceSummary createPriceSummary(int totalBooks, double finalPrice) {
         PriceSummary priceSummary = new PriceSummary();
-        priceSummary.setActualPrice(50 * totalBooks);
+        priceSummary.setActualPrice(SINGLE_BOOK_PRICE * totalBooks);
         priceSummary.setFinalPrice(finalPrice);
         priceSummary.setTotalBooks(totalBooks);
         priceSummary.setTotalDiscount(priceSummary.getActualPrice() - priceSummary.getFinalPrice());
@@ -40,15 +41,15 @@ public class BookService {
 		double discountedPrice = 0;
 		double actualCost = totalBooks * SINGLE_BOOK_PRICE;
 		if (typesOfBook == 1)
-			discountedPrice = 50;
+			discountedPrice = SINGLE_BOOK_PRICE;
 		if (typesOfBook == 2)
-			discountedPrice = actualCost - (actualCost * (5.0 / 100));
+			discountedPrice = actualCost - (actualCost * (5.0 / ONE_HUNDRED));
 		if (typesOfBook == 3)
-			discountedPrice = actualCost - (actualCost * (10.0 / 100));
+			discountedPrice = actualCost - (actualCost * (10.0 / ONE_HUNDRED));
 		if (typesOfBook == 4)
-			discountedPrice = actualCost - (actualCost * (20.0 / 100));
+			discountedPrice = actualCost - (actualCost * (20.0 / ONE_HUNDRED));
 		if (typesOfBook == 5)
-			discountedPrice = actualCost - (actualCost * (25.0 / 100));
+			discountedPrice = actualCost - (actualCost * (25.0 / ONE_HUNDRED));
 		return discountedPrice;
 	}
 }
