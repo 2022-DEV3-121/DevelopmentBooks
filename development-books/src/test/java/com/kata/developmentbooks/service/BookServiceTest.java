@@ -124,6 +124,18 @@ class BookServiceTest {
 		String expectedMessage = "Invalid book quantity provided, please select quantity of book as more than one";
 		assertTrue(exception.getMessage().equals(expectedMessage));
     }
+    
+    @Test
+    public void getPriceShouldThrowInvalidBookInputExceptionIfRepeatedBookIdsAreProvided() {
+        List<BookRequest> books = new ArrayList<BookRequest>();
+        books.add(new BookRequest(1, 1));
+        books.add(new BookRequest(1, 2));
+        InvalidBookInputException exception = assertThrows(InvalidBookInputException.class, () -> {
+			service.getPrice(books);
+		});
+		String expectedMessage = "Invalid book Id provided, please do not repeat any book Id which is already provided";
+		assertTrue(exception.getMessage().equals(expectedMessage));
+    }
 
 	private List<Books> getExpectedBooks() {
 		List<Books> excpectedBooks = new ArrayList<Books>();

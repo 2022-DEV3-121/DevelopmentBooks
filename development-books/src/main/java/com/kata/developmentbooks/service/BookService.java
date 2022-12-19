@@ -2,6 +2,8 @@ package com.kata.developmentbooks.service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -70,6 +72,9 @@ public class BookService {
     
     public void validateBookInputs(List<BookRequest> books) {
     	List<Integer> availableBookIds = getAllBooks().stream().map(book -> book.getId()).collect(Collectors.toList());	
+    	Map<Integer, Long> idCountsMap = books.stream().map(book -> book.getBookId())
+    	        .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+    	
     	books.forEach(book -> {
     		if(!availableBookIds.contains(book.getBookId())) {
     			throw new InvalidBookInputException("Invalid book Id provided, please select from the available book Id's only");
@@ -78,5 +83,9 @@ public class BookService {
     			throw new InvalidBookInputException("Invalid book quantity provided, please select quantity of book as more than one");				
     		}
     	});	
+    	
+    	if(idCountsMap.keySet().stream().anyMatch(bookId -> idCountsMap.get(bookId) > 1)) {	
+			throw new InvalidBookInputException("Invalid book Id provided, please do not repeat any book Id which is already provided");
+    	}
     }
 }
