@@ -57,6 +57,16 @@ class BookServiceTest {
         PriceSummary result = service.getPrice(books);
         assertEquals(95.0, result.getFinalPrice());
     }
+    
+    @Test
+    public void getPriceShouldReturnTenPercentDiscountedPriceForThreeDiffBooks() {
+        List<BookRequest> books = new ArrayList<BookRequest>();
+        books.add(new BookRequest(1, 1));
+        books.add(new BookRequest(2, 1));
+        books.add(new BookRequest(3, 1));
+        PriceSummary result = service.getPrice(books);
+        assertEquals(135.0, result.getFinalPrice(), 0.0);
+    }
 
 	private List<Books> getExpectedBooks() {
 		List<Books> excpectedBooks = new ArrayList<Books>();
