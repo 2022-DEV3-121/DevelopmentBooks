@@ -34,9 +34,9 @@ class DevelopmentBooksControllerTest {
 	}
 
 	@Test
-	public void buyBookShouldReturnSuccessMessage() {
-		String result = controller.buyBook(new BookRequest(1, 1));
-		assertEquals("Book bought..", result);
+	public void getPriceShouldReturnSuccessMessage() {
+		double result = controller.getPrice(new BookRequest(1, 1));
+		assertEquals(50.0, result);
 	}
 
 }
