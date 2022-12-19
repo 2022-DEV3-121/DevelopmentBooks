@@ -24,11 +24,7 @@ public class BookService {
 	}
 
 	public PriceSummary getPrice(List<BookRequest> books) {
-		
-		List<Integer> availableBookIds = getAllBooks().stream().map(book -> book.getId()).collect(Collectors.toList());
-		if(books.stream().anyMatch(book -> !availableBookIds.contains(book.getBookId()))) {
-			throw new InputMismatchException("Invalid book Id provided, please select from the available book Id's only");
-		}
+		validateBookInputs(books);
         if (books.size() == 1) {
             return createPriceSummaryForOnlyOneBookType(books.get(0));
 		}
@@ -70,5 +66,12 @@ public class BookService {
         priceSummary.setTotalBooks(booksInput.getQuantity());
         priceSummary.setTotalDiscount(0);
         return priceSummary;
+    }
+    
+    public void validateBookInputs(List<BookRequest> books) {
+    	List<Integer> availableBookIds = getAllBooks().stream().map(book -> book.getId()).collect(Collectors.toList());
+		if(books.stream().anyMatch(book -> !availableBookIds.contains(book.getBookId()))) {
+			throw new InputMismatchException("Invalid book Id provided, please select from the available book Id's only");
+		}
     }
 }
