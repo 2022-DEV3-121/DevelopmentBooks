@@ -24,22 +24,7 @@ public class BookService {
 	public PriceSummary getPrice(List<BookRequest> books) {
 		int totalBooks = books.stream().mapToInt(book -> book.getQuantity()).sum();
         int typesOfBook = books.size();
-		double actualCost = totalBooks * SINGLE_BOOK_PRICE;
-		double discount = 0;
-		if (typesOfBook == 2 ) {
-			discount = 5;
-		}
-		if(typesOfBook == 3) {
-			discount = 10;
-		}
-		if(typesOfBook == 4) {
-			discount = 20;
-		}
-		if(typesOfBook == 5) {
-			discount = 25;
-		}
-		double finalPrice = actualCost - (actualCost * (discount / 100));
-        return createPriceSummary(totalBooks, finalPrice);
+        return createPriceSummary(totalBooks, calculateDiscountByNoOfTypesOfBooks(totalBooks, typesOfBook));
     }
 
     public PriceSummary createPriceSummary(int totalBooks, double finalPrice) {
@@ -49,5 +34,21 @@ public class BookService {
         priceSummary.setTotalBooks(totalBooks);
         priceSummary.setTotalDiscount(priceSummary.getActualPrice() - priceSummary.getFinalPrice());
         return priceSummary;
+	}
+    
+    public double calculateDiscountByNoOfTypesOfBooks(int totalBooks, int typesOfBook) {
+		double discountedPrice = 0;
+		double actualCost = totalBooks * SINGLE_BOOK_PRICE;
+		if (typesOfBook == 1)
+			discountedPrice = 50;
+		if (typesOfBook == 2)
+			discountedPrice = actualCost - (actualCost * (5.0 / 100));
+		if (typesOfBook == 3)
+			discountedPrice = actualCost - (actualCost * (10.0 / 100));
+		if (typesOfBook == 4)
+			discountedPrice = actualCost - (actualCost * (20.0 / 100));
+		if (typesOfBook == 5)
+			discountedPrice = actualCost - (actualCost * (25.0 / 100));
+		return discountedPrice;
 	}
 }
