@@ -112,6 +112,18 @@ class BookServiceTest {
 		String expectedMessage = "Invalid book Id provided, please select from the available book Id's only";
 		assertTrue(exception.getMessage().equals(expectedMessage));
     }
+    
+    @Test
+    public void getPriceShouldThrowInputMismatchExceptionIfInvalidQuantityIsProvided() {
+        List<BookRequest> books = new ArrayList<BookRequest>();
+        books.add(new BookRequest(1, 1));
+        books.add(new BookRequest(5, 0));
+        InputMismatchException exception = assertThrows(InputMismatchException.class, () -> {
+			service.getPrice(books);
+		});
+		String expectedMessage = "Invalid book quantity provided, please select quantity of book as more than one";
+		assertTrue(exception.getMessage().equals(expectedMessage));
+    }
 
 	private List<Books> getExpectedBooks() {
 		List<Books> excpectedBooks = new ArrayList<Books>();

@@ -73,5 +73,8 @@ public class BookService {
 		if(books.stream().anyMatch(book -> !availableBookIds.contains(book.getBookId()))) {
 			throw new InputMismatchException("Invalid book Id provided, please select from the available book Id's only");
 		}
+		if(books.stream().anyMatch(book -> book.getQuantity() <= 0)) {
+			throw new InputMismatchException("Invalid book quantity provided, please select quantity of book as more than one");			
+		}
     }
 }
