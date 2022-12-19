@@ -44,8 +44,7 @@ public class BookService {
             reduceQuantityOfAlreadyAddedBooksIntoGroups(books);
             }
             else {
-            priceOfSimilarBooksLeft = books.stream().filter(book -> book.getQuantity() > 0)
-                    .mapToDouble(book -> book.getQuantity() * SINGLE_BOOK_PRICE).sum();
+            priceOfSimilarBooksLeft = calculatePriceForBooksWithoutDiscount(books);
             break;
             }
         }
@@ -112,5 +111,9 @@ public class BookService {
         books.forEach(book -> {
             book.setQuantity(book.getQuantity() - 1);
         });
+    }
+    
+    public double calculatePriceForBooksWithoutDiscount(List<BookRequest> books) {
+        return books.stream().filter(book -> book.getQuantity() > 0).mapToDouble(book -> book.getQuantity() * SINGLE_BOOK_PRICE).sum();
     }
 }
