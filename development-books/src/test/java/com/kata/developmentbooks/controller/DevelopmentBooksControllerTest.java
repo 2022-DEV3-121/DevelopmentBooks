@@ -40,7 +40,7 @@ class DevelopmentBooksControllerTest {
 		books.add(new BookRequest(1, 1));
 		books.add(new BookRequest(2, 1));
 		double result = controller.getPrice(books);
-		assertEquals(100.0, result);
+		assertEquals(95.0, result);
 	}
 
 }

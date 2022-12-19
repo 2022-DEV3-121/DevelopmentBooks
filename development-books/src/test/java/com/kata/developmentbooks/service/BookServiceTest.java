@@ -45,8 +45,17 @@ class BookServiceTest {
         books.add(new BookRequest(1, 1));
         books.add(new BookRequest(2, 1));
         double result = service.getPrice(books);
-		assertEquals(100.0, result);
+		assertEquals(95.0, result);
 	}
+	
+    @Test
+    public void getPriceShouldReturnFivePercentDiscountedPriceForTwoDiffBooks() {
+        List<BookRequest> books = new ArrayList<BookRequest>();
+        books.add(new BookRequest(1, 1));
+        books.add(new BookRequest(2, 1));
+        double result = service.getPrice(books);
+        assertEquals(95.0, result);
+    }
 
 	private List<Books> getExpectedBooks() {
 		List<Books> excpectedBooks = new ArrayList<Books>();
