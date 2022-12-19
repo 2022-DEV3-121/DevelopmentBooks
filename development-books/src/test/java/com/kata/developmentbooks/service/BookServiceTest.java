@@ -148,6 +148,18 @@ class BookServiceTest {
         PriceSummary result = service.getPrice(books);
         assertEquals(375.0, result.getFinalPrice());
     }
+    
+    @Test
+    public void getPriceShouldReturnDiscountedPriceAfterGroupingBooksIntoGroupsAlongWithSimilarBooksLeftWithNoDiscount() {
+        List<BookRequest> books = new ArrayList<BookRequest>();
+        books.add(new BookRequest(1, 2));
+        books.add(new BookRequest(2, 2));
+        books.add(new BookRequest(3, 2));
+        books.add(new BookRequest(4, 2));
+        books.add(new BookRequest(5, 12));
+        PriceSummary result = service.getPrice(books);
+        assertEquals(875.0, result.getFinalPrice());
+    }
 
 	private List<Books> getExpectedBooks() {
 		List<Books> excpectedBooks = new ArrayList<Books>();

@@ -33,17 +33,24 @@ public class BookService {
 		}
 		int totalBooks = books.stream().mapToInt(book -> book.getQuantity()).sum();
         List<Integer> bookGroups = new ArrayList<Integer>();
-
+        double priceOfSimilarBooksLeft = 0;
         int noOfGroups = 1 + (totalBooks / books.size());
         double finalPrice = 0;
 
         for (int i = 0; i < noOfGroups; i++) {
-            int typesOfBookLeft = (int) books.stream().filter(book -> book.getQuantity() > 0).count();
+        	int typesOfBookLeft = (int) books.stream().filter(book -> book.getQuantity() > 0).count();      	              
+            if (typesOfBookLeft > 1) {
             bookGroups.add(typesOfBookLeft);
             reduceQuantityOfAlreadyAddedBooksIntoGroups(books);
+            }
+            else {
+            priceOfSimilarBooksLeft = books.stream().filter(book -> book.getQuantity() > 0)
+                    .mapToDouble(book -> book.getQuantity() * SINGLE_BOOK_PRICE).sum();
+            break;
+            }
         }
 
-        finalPrice = bookGroups.stream().mapToDouble(group -> calculateDiscountByNoOfTypesOfBooks(group)).sum();
+        finalPrice = priceOfSimilarBooksLeft + bookGroups.stream().mapToDouble(group -> calculateDiscountByNoOfTypesOfBooks(group)).sum();
         return createPriceSummary(totalBooks, finalPrice);
     }
 
