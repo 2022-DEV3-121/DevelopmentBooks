@@ -44,135 +44,135 @@ class BookServiceTest {
 
 	@Test
 	public void getPriceShouldReturnPriceOfBooks() {
-        List<BookRequest> books = new ArrayList<BookRequest>();
-        books.add(new BookRequest(1, 1));
-        books.add(new BookRequest(2, 1));
-        PriceSummary result = service.getPrice(books);
+		List<BookRequest> books = new ArrayList<BookRequest>();
+		books.add(new BookRequest(1, 1));
+		books.add(new BookRequest(2, 1));
+		PriceSummary result = service.getPrice(books);
 		assertEquals(95.0, result.getFinalPrice());
 	}
-	
-    @Test
-    public void getPriceShouldReturnFivePercentDiscountedPriceForTwoDiffBooks() {
-        List<BookRequest> books = new ArrayList<BookRequest>();
-        books.add(new BookRequest(1, 1));
-        books.add(new BookRequest(2, 1));
-        PriceSummary result = service.getPrice(books);
-        assertEquals(95.0, result.getFinalPrice());
-    }
-    
-    @Test
-    public void getPriceShouldReturnTenPercentDiscountedPriceForThreeDiffBooks() {
-        List<BookRequest> books = new ArrayList<BookRequest>();
-        books.add(new BookRequest(1, 1));
-        books.add(new BookRequest(2, 1));
-        books.add(new BookRequest(3, 1));
-        PriceSummary result = service.getPrice(books);
-        assertEquals(135.0, result.getFinalPrice(), 0.0);
-    }
-    
-    @Test
-    public void getPriceShouldReturnTwentyPercentDiscountedPriceForFourDiffBooks() {
-        List<BookRequest> books = new ArrayList<BookRequest>();
-        books.add(new BookRequest(1, 1));
-        books.add(new BookRequest(2, 1));
-        books.add(new BookRequest(3, 1));
-        books.add(new BookRequest(4, 1));
-        PriceSummary result = service.getPrice(books);
-        assertEquals(160.0, result.getFinalPrice(), 0.0);
-    }
-    
-    @Test
-    public void getPriceShouldReturnTwentyFivePercentDiscountedPriceForFiveDiffBooks() {
-        List<BookRequest> books = new ArrayList<BookRequest>();
-        books.add(new BookRequest(1, 1));
-        books.add(new BookRequest(2, 1));
-        books.add(new BookRequest(3, 1));
-        books.add(new BookRequest(4, 1));
-        books.add(new BookRequest(5, 1));
-        PriceSummary result = service.getPrice(books);
-        assertEquals(187.5, result.getFinalPrice());
-    }
-    
-    @Test
-    public void getPriceShouldReturnActualPriceWithoutDiscountedForMultipleBooksOfSameType() {
-        List<BookRequest> books = new ArrayList<BookRequest>();
-        books.add(new BookRequest(1, 5));
-        PriceSummary result = service.getPrice(books);
-        assertEquals(250.0, result.getFinalPrice());
-    }
-    
-    @Test
-    public void getPriceShouldThrowInvalidBookInputExceptionIfInvalidBookIdProvided() {
-        List<BookRequest> books = new ArrayList<BookRequest>();
-        books.add(new BookRequest(1, 1));
-        books.add(new BookRequest(6, 1));
-        InvalidBookInputException exception = assertThrows(InvalidBookInputException.class, () -> {
+
+	@Test
+	public void getPriceShouldReturnFivePercentDiscountedPriceForTwoDiffBooks() {
+		List<BookRequest> books = new ArrayList<BookRequest>();
+		books.add(new BookRequest(1, 1));
+		books.add(new BookRequest(2, 1));
+		PriceSummary result = service.getPrice(books);
+		assertEquals(95.0, result.getFinalPrice());
+	}
+
+	@Test
+	public void getPriceShouldReturnTenPercentDiscountedPriceForThreeDiffBooks() {
+		List<BookRequest> books = new ArrayList<BookRequest>();
+		books.add(new BookRequest(1, 1));
+		books.add(new BookRequest(2, 1));
+		books.add(new BookRequest(3, 1));
+		PriceSummary result = service.getPrice(books);
+		assertEquals(135.0, result.getFinalPrice(), 0.0);
+	}
+
+	@Test
+	public void getPriceShouldReturnTwentyPercentDiscountedPriceForFourDiffBooks() {
+		List<BookRequest> books = new ArrayList<BookRequest>();
+		books.add(new BookRequest(1, 1));
+		books.add(new BookRequest(2, 1));
+		books.add(new BookRequest(3, 1));
+		books.add(new BookRequest(4, 1));
+		PriceSummary result = service.getPrice(books);
+		assertEquals(160.0, result.getFinalPrice(), 0.0);
+	}
+
+	@Test
+	public void getPriceShouldReturnTwentyFivePercentDiscountedPriceForFiveDiffBooks() {
+		List<BookRequest> books = new ArrayList<BookRequest>();
+		books.add(new BookRequest(1, 1));
+		books.add(new BookRequest(2, 1));
+		books.add(new BookRequest(3, 1));
+		books.add(new BookRequest(4, 1));
+		books.add(new BookRequest(5, 1));
+		PriceSummary result = service.getPrice(books);
+		assertEquals(187.5, result.getFinalPrice());
+	}
+
+	@Test
+	public void getPriceShouldReturnActualPriceWithoutDiscountedForMultipleBooksOfSameType() {
+		List<BookRequest> books = new ArrayList<BookRequest>();
+		books.add(new BookRequest(1, 5));
+		PriceSummary result = service.getPrice(books);
+		assertEquals(250.0, result.getFinalPrice());
+	}
+
+	@Test
+	public void getPriceShouldThrowInvalidBookInputExceptionIfInvalidBookIdProvided() {
+		List<BookRequest> books = new ArrayList<BookRequest>();
+		books.add(new BookRequest(1, 1));
+		books.add(new BookRequest(6, 1));
+		InvalidBookInputException exception = assertThrows(InvalidBookInputException.class, () -> {
 			service.getPrice(books);
 		});
 		String expectedMessage = "Invalid book Id provided, please select from the available book Id's only";
 		assertTrue(exception.getMessage().equals(expectedMessage));
-    }
-    
-    @Test
-    public void getPriceShouldThrowInvalidBookInputExceptionIfInvalidQuantityIsProvided() {
-        List<BookRequest> books = new ArrayList<BookRequest>();
-        books.add(new BookRequest(1, 1));
-        books.add(new BookRequest(5, 0));
-        InvalidBookInputException exception = assertThrows(InvalidBookInputException.class, () -> {
+	}
+
+	@Test
+	public void getPriceShouldThrowInvalidBookInputExceptionIfInvalidQuantityIsProvided() {
+		List<BookRequest> books = new ArrayList<BookRequest>();
+		books.add(new BookRequest(1, 1));
+		books.add(new BookRequest(5, 0));
+		InvalidBookInputException exception = assertThrows(InvalidBookInputException.class, () -> {
 			service.getPrice(books);
 		});
 		String expectedMessage = "Invalid book quantity provided, please select quantity of book as more than one";
 		assertTrue(exception.getMessage().equals(expectedMessage));
-    }
-    
-    @Test
-    public void getPriceShouldThrowInvalidBookInputExceptionIfRepeatedBookIdsAreProvided() {
-        List<BookRequest> books = new ArrayList<BookRequest>();
-        books.add(new BookRequest(1, 1));
-        books.add(new BookRequest(1, 2));
-        InvalidBookInputException exception = assertThrows(InvalidBookInputException.class, () -> {
+	}
+
+	@Test
+	public void getPriceShouldThrowInvalidBookInputExceptionIfRepeatedBookIdsAreProvided() {
+		List<BookRequest> books = new ArrayList<BookRequest>();
+		books.add(new BookRequest(1, 1));
+		books.add(new BookRequest(1, 2));
+		InvalidBookInputException exception = assertThrows(InvalidBookInputException.class, () -> {
 			service.getPrice(books);
 		});
 		String expectedMessage = "Invalid book Id provided, please do not repeat any book Id which is already provided";
 		assertTrue(exception.getMessage().equals(expectedMessage));
-    }
-    
-    @Test
-    public void getPriceShouldReturnDiscountedPriceAfterGroupingBooksForMaxDiscount() {
-        List<BookRequest> books = new ArrayList<BookRequest>();
-        books.add(new BookRequest(1, 2));
-        books.add(new BookRequest(2, 2));
-        books.add(new BookRequest(3, 2));
-        books.add(new BookRequest(4, 2));
-        books.add(new BookRequest(5, 2));
-        PriceSummary result = service.getPrice(books);
-        assertEquals(375.0, result.getFinalPrice());
-    }
-    
-    @Test
-    public void getPriceShouldReturnDiscountedPriceAfterGroupingBooksIntoGroupsAlongWithSimilarBooksLeftWithNoDiscount() {
-        List<BookRequest> books = new ArrayList<BookRequest>();
-        books.add(new BookRequest(1, 2));
-        books.add(new BookRequest(2, 2));
-        books.add(new BookRequest(3, 2));
-        books.add(new BookRequest(4, 2));
-        books.add(new BookRequest(5, 12));
-        PriceSummary result = service.getPrice(books);
-        assertEquals(875.0, result.getFinalPrice());
-    }
+	}
 
-    @Test
-    public void getPriceShouldReturnMaximumDiscountedPriceAfterOptimizingGroupingOfBooks() {
-        List<BookRequest> books = new ArrayList<BookRequest>();
-        books.add(new BookRequest(1, 2));
-        books.add(new BookRequest(2, 2));
-        books.add(new BookRequest(3, 2));
-        books.add(new BookRequest(4, 1));
-        books.add(new BookRequest(5, 1));
-        PriceSummary result = service.calulateBooksPriceWithDiscount(books);
-        assertEquals(320.0, result.getFinalPrice(), 0.0);
-    }
-    
+	@Test
+	public void getPriceShouldReturnDiscountedPriceAfterGroupingBooksForMaxDiscount() {
+		List<BookRequest> books = new ArrayList<BookRequest>();
+		books.add(new BookRequest(1, 2));
+		books.add(new BookRequest(2, 2));
+		books.add(new BookRequest(3, 2));
+		books.add(new BookRequest(4, 2));
+		books.add(new BookRequest(5, 2));
+		PriceSummary result = service.getPrice(books);
+		assertEquals(375.0, result.getFinalPrice());
+	}
+
+	@Test
+	public void getPriceShouldReturnDiscountedPriceAfterGroupingBooksIntoGroupsAlongWithSimilarBooksLeftWithNoDiscount() {
+		List<BookRequest> books = new ArrayList<BookRequest>();
+		books.add(new BookRequest(1, 2));
+		books.add(new BookRequest(2, 2));
+		books.add(new BookRequest(3, 2));
+		books.add(new BookRequest(4, 2));
+		books.add(new BookRequest(5, 12));
+		PriceSummary result = service.getPrice(books);
+		assertEquals(875.0, result.getFinalPrice());
+	}
+
+	@Test
+	public void getPriceShouldReturnMaximumDiscountedPriceAfterOptimizingGroupingOfBooks() {
+		List<BookRequest> books = new ArrayList<BookRequest>();
+		books.add(new BookRequest(1, 2));
+		books.add(new BookRequest(2, 2));
+		books.add(new BookRequest(3, 2));
+		books.add(new BookRequest(4, 1));
+		books.add(new BookRequest(5, 1));
+		PriceSummary result = service.calulateBooksPriceWithDiscount(books);
+		assertEquals(320.0, result.getFinalPrice(), 0.0);
+	}
+
 	private List<Books> getExpectedBooks() {
 		List<Books> excpectedBooks = new ArrayList<Books>();
 		excpectedBooks.add(new Books(1, "Clean Code", "Robert Martin", 2008, 50.00));
