@@ -102,7 +102,7 @@ class BookServiceTest {
     }
     
     @Test
-    public void getPriceShouldThrowInputMismatchExceptionIfInvalidBookIdProvided() {
+    public void getPriceShouldThrowInvalidBookInputExceptionIfInvalidBookIdProvided() {
         List<BookRequest> books = new ArrayList<BookRequest>();
         books.add(new BookRequest(1, 1));
         books.add(new BookRequest(6, 1));
@@ -114,7 +114,7 @@ class BookServiceTest {
     }
     
     @Test
-    public void getPriceShouldThrowInputMismatchExceptionIfInvalidQuantityIsProvided() {
+    public void getPriceShouldThrowInvalidBookInputExceptionIfInvalidQuantityIsProvided() {
         List<BookRequest> books = new ArrayList<BookRequest>();
         books.add(new BookRequest(1, 1));
         books.add(new BookRequest(5, 0));
