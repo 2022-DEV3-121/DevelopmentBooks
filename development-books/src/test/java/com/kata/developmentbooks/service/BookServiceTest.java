@@ -6,15 +6,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.kata.developmentbooks.model.Books;
 
 class BookServiceTest {
 
+	BookService service;
+
+	@BeforeEach
+	public void setUp() {
+		service = new BookService();
+	}
+
 	@Test
 	public void getAllBooksShouldReturnFiveBookNames() {
-		BookService service = new BookService();
 		List<Books> books = service.getAllBooks();
 		assertEquals(5, books.size());
 		assertTrue(books.containsAll(getExpectedBooks()));
@@ -22,7 +29,6 @@ class BookServiceTest {
 
 	@Test
 	public void getAllBooksShouldReturnBooksWithDetails() {
-		BookService service = new BookService();
 		List<Books> result = service.getAllBooks();
 		List<Books> excpectedBooks = getExpectedBooks();
 		assertEquals(excpectedBooks.get(0), result.get(0));
