@@ -69,12 +69,14 @@ public class BookService {
     }
     
     public void validateBookInputs(List<BookRequest> books) {
-    	List<Integer> availableBookIds = getAllBooks().stream().map(book -> book.getId()).collect(Collectors.toList());
-		if(books.stream().anyMatch(book -> !availableBookIds.contains(book.getBookId()))) {
-			throw new InvalidBookInputException("Invalid book Id provided, please select from the available book Id's only");
-		}
-		if(books.stream().anyMatch(book -> book.getQuantity() <= 0)) {
-			throw new InvalidBookInputException("Invalid book quantity provided, please select quantity of book as more than one");			
-		}
+    	List<Integer> availableBookIds = getAllBooks().stream().map(book -> book.getId()).collect(Collectors.toList());	
+    	books.forEach(book -> {
+    		if(!availableBookIds.contains(book.getBookId())) {
+    			throw new InvalidBookInputException("Invalid book Id provided, please select from the available book Id's only");
+    		}
+    		if(book.getQuantity() <= 0) {
+    			throw new InvalidBookInputException("Invalid book quantity provided, please select quantity of book as more than one");				
+    		}
+    	});	
     }
 }
