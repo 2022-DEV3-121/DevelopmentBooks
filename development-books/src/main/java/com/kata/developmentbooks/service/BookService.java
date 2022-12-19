@@ -30,6 +30,10 @@ public class BookService {
 			discount = 5;
 		}
 		double finalPrice = actualCost - (actualCost * (discount / 100));
+        return createPriceSummary(totalBooks, finalPrice);
+    }
+
+    public PriceSummary createPriceSummary(int totalBooks, double finalPrice) {
         PriceSummary priceSummary = new PriceSummary();
         priceSummary.setActualPrice(50 * totalBooks);
         priceSummary.setFinalPrice(finalPrice);
