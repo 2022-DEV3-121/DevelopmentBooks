@@ -90,6 +90,14 @@ class BookServiceTest {
         PriceSummary result = service.getPrice(books);
         assertEquals(187.5, result.getFinalPrice());
     }
+    
+    @Test
+    public void getPriceShouldReturnActualPriceWithoutDiscountedForMultipleBooksOfSameType() {
+        List<BookRequest> books = new ArrayList<BookRequest>();
+        books.add(new BookRequest(1, 5));
+        PriceSummary result = service.getPrice(books);
+        assertEquals(250.0, result.getFinalPrice());
+    }
 
 	private List<Books> getExpectedBooks() {
 		List<Books> excpectedBooks = new ArrayList<Books>();
